@@ -12,9 +12,12 @@ namespace Puzzle1Biblio
 {
     public partial class UserControl1 : UserControl
     {
+        int cont = 0;
+        int min = 0;
         public UserControl1()
         {
             InitializeComponent();
+            
         }
 
         private void checkBox1_Click(object sender, EventArgs e)
@@ -64,8 +67,10 @@ namespace Puzzle1Biblio
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //TO DO
-            MessageBox.Show("Enhorabuena, ha resuelto el puzzle", "FELICIDADES");
+            timer1.Enabled = false;
+            MessageBox.Show("Enhorabuena, ha resuelto el puzzle en " + min + " minutos y " + cont.ToString() + " segundos", "FELICIDADES");
+            cont = 0;
+            timer1.Enabled = true;
         }
 
 
@@ -104,10 +109,18 @@ namespace Puzzle1Biblio
         private void button2_Reiniciar(object sender, EventArgs e)
         {
             Reiniciar(checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7, checkBox8, checkBox9);
-
+            cont = 0;
         }
 
-
-
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            cont++;
+            if (cont == 60)
+            {
+                min++;
+                cont = 0;
+            }
+            label1.Text = min + ":"+ cont.ToString();
+        }
     }
 }
